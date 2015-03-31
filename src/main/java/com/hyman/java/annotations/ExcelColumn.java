@@ -1,7 +1,7 @@
 package com.hyman.java.annotations;
 
-import com.hyman.java.base.DateTypeHandler;
-import com.hyman.java.base.TypeHandler;
+import com.hyman.java.handler.BaseHandler;
+import com.hyman.java.handler.TypeHandler;
 
 import java.lang.annotation.*;
 
@@ -35,5 +35,5 @@ public @interface ExcelColumn {
     /**
      * 类型处理器
      */
-    Class<? extends TypeHandler<?>> typeHandler() default DateTypeHandler.class;
+    Class<? extends TypeHandler<?>> typeHandler() default BaseHandler.class;
 }

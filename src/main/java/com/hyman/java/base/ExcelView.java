@@ -20,8 +20,6 @@ public class ExcelView<T> extends AbstractExcelView {
 
     private static Logger logger = LoggerFactory.getLogger(ExcelView.class);
 
-    private static String DEFAULTTABLENAME = "DefaultExcel";
-
     /**
      * Excel中的数据
      */
@@ -64,8 +62,7 @@ public class ExcelView<T> extends AbstractExcelView {
         logger.info("ExcelView.buildExcelDocument");
         try {
             if (StringUtils.isBlank(fileName)) {
-                fileName = DEFAULTTABLENAME;
-
+                fileName = "DefaultExcel";
                 Class<? extends Object> dataCls = dataList.get(0).getClass();
                 ExcelTable excelTable = dataCls.getAnnotation(ExcelTable.class);
                 if (excelTable != null) {

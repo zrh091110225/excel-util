@@ -2,6 +2,7 @@ package com.hyman.java.export;
 
 import com.hyman.java.annotations.ExcelColumn;
 import com.hyman.java.annotations.ExcelTable;
+import com.hyman.java.handler.TypeHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
@@ -56,7 +57,7 @@ public class ExportUtil {
             font.setBoldweight(Font.BOLDWEIGHT_BOLD);
 
             int totalDataSize = excelData.size();
-            int sheetCnt = totalDataSize /  + 1;
+            int sheetCnt = totalDataSize / +1;
 
             if (sheetCnt > EXCEL_MAX_SHEET_CNT) {
                 throw new Exception("数据量超过了Excel的容量范围！");
@@ -111,13 +112,12 @@ public class ExportUtil {
                 // 创建列
                 HSSFCell cell = dataRow.createCell(columnIndex);
 
-                // 反射获取字段的值
-                String aimPattern = columnHeader.pattern();
+                //字段格式
+                String pattern = columnHeader.pattern();
                 Object fieldValue = getFieldValue(data, field);
                 String textValue = " ";
                 if (fieldValue != null) {
-                    //TODO 类型处理
-                    textValue = fieldValue.toString();
+                    Object instances = columnHeader.typeHandler();
                 }
 
                 HSSFRichTextString text = new HSSFRichTextString(textValue);

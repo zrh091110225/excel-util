@@ -1,6 +1,6 @@
 package com.hyman.java;
 
-import com.hyman.java.base.ExcelView;
+import com.hyman.java.export.ExportUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ public class MainTest {
         List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();
         SchoolBean one = new SchoolBean("name","address",1000);
         schoolBeans.add(one);
+        ExportUtil.export("hello", schoolBeans);
     }
 }
 

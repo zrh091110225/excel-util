@@ -12,7 +12,7 @@ public @interface ExcelTable {
     /**
      * Excel文件名
      */
-    String fileName();
+    String fileName() default "DefaultExcel";
 
     /**
      * 文件最大行数
