@@ -12,22 +12,20 @@ import java.util.Date;
 @ExcelTable(fileName = "school")
 public class SchoolBean {
 
-    @ExcelColumn(headerName = "学校名称", columnWidth = 30)
+    @ExcelColumn(headerName = "学校名称", columnWidth = 30, columnHeight = 100)
     private String schoolName;
-    @ExcelColumn(headerName = "学校地址", columnWidth = 30)
+    @ExcelColumn(headerName = "学校地址", columnWidth = 30, columnHeight = 100)
     private String address;
-    @ExcelColumn(headerName = "学校面积", columnWidth = 30)
+    @ExcelColumn(headerName = "学校面积", columnWidth = 30, columnHeight = 100)
     private int size;
     @ExcelColumn(headerName = "创建时间", columnWidth = 30, typeHandler = DateTypeHandler.class, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    @ExcelColumn(headerName = "是否211", columnWidth = 30, columnHeight = 100)
+    private boolean is211;
+    @ExcelColumn(headerName = "校长信息", columnWidth = 30, columnHeight = 100)
+    private HeadMaster headMaster;
 
     public SchoolBean() {
-    }
-
-    public SchoolBean(String schoolName, String address, int size) {
-        this.schoolName = schoolName;
-        this.address = address;
-        this.size = size;
     }
 
     public String getSchoolName() {
@@ -60,5 +58,21 @@ public class SchoolBean {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public boolean isIs211() {
+        return is211;
+    }
+
+    public void setIs211(boolean is211) {
+        this.is211 = is211;
+    }
+
+    public HeadMaster getHeadMaster() {
+        return headMaster;
+    }
+
+    public void setHeadMaster(HeadMaster headMaster) {
+        this.headMaster = headMaster;
     }
 }

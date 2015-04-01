@@ -81,7 +81,7 @@ public class ExportUtil {
 
             return workbook;
         } catch (Exception e) {
-            logger.error("导出Excel异常！", e);
+            logger.error("export error ！", e);
         }
 
         return null;
@@ -103,29 +103,39 @@ public class ExportUtil {
             Field[] fields = dataClass.getDeclaredFields();
             int columnIndex = 0;
             for (Field field : fields) {
-                // 如果没有配置注解，则不在excel中导出该字段
                 ExcelColumn columnHeader = field.getAnnotation(ExcelColumn.class);
                 if (columnHeader == null) {
                     continue;
                 }
-
                 // 创建列
                 HSSFCell cell = dataRow.createCell(columnIndex);
-
                 //字段格式
-                String pattern = columnHeader.pattern();
-                Object fieldValue = getFieldValue(data, field);
-                String textValue = " ";
-                if (fieldValue != null) {
-                    Object instances = columnHeader.typeHandler();
-                }
-
+                String textValue = formatFieldValue( columnHeader.pattern(), getFieldValue(data, field), columnHeader.typeHandler());
                 HSSFRichTextString text = new HSSFRichTextString(textValue);
                 cell.setCellValue(text);
-
                 columnIndex++;
             }
         }
+    }
+
+    /**
+     * 获取属性的字符串格式化的值
+     * @param pattern
+     * @param fieldValue
+     * @param handler
+     * @return
+     */
+    private static String formatFieldValue(String pattern, Object fieldValue, Class<? extends TypeHandler<?>> handler) {
+        if (fieldValue != null) {
+            try {
+                return handler.newInstance().handle(fieldValue, pattern);
+            } catch (InstantiationException e) {
+                logger.error("get field={} InstantiationException ! msg={}", fieldValue.toString(), e);
+            } catch (IllegalAccessException e) {
+                logger.error("get field={} InstantiationException ! msg={}", fieldValue.toString(), e);
+            }
+        }
+        return null;
     }
 
     /**
@@ -139,8 +149,9 @@ public class ExportUtil {
         HSSFRow headerRow = sheet.createRow(0);
         Field[] fields = excelData.get(0).getClass().getDeclaredFields();
         int columnIndex = 0;
-        for (Field field : fields) {
 
+        //TODO 注解的类里面还有注解
+        for (Field field : fields) {
             // 如果没有配置注解，则不在excel中导出该字段
             ExcelColumn columnHeader = field.getAnnotation(ExcelColumn.class);
             if (columnHeader == null) {
@@ -151,8 +162,6 @@ public class ExportUtil {
             String columnTitle = columnHeader.headerName();
             int columnWidth = columnHeader.columnWidth();
             int columnHeight = columnHeader.columnHeight() * 256;
-            columnHeader.typeHandler();
-
             // 创建列
             HSSFCell cell = headerRow.createCell(columnIndex);
             headerRow.setHeight((short) columnHeight);

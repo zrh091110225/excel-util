@@ -8,6 +8,5 @@ public abstract class TypeHandler<T> {
     public String handerType(T t, String pattern) {
         return handle(t, pattern);
     }
-
-    public abstract String handle(T t, String pattern);
+    public abstract String handle(Object t, String pattern);
 }

@@ -18,4 +18,9 @@ public @interface ExcelTable {
      * 文件最大行数
      */
     int maxRows() default 65535;
+
+    /**
+     * 字体风格
+     */
+
 }
