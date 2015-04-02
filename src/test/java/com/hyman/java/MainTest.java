@@ -1,6 +1,8 @@
 package com.hyman.java;
 
-import com.hyman.java.export.ExportUtil;
+import com.hyman.java.base.ExcelView;
+import com.hyman.java.utils.ExportUtil;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +20,15 @@ public class MainTest {
         one.setSchoolName("hit");
         one.setIs211(true);
         one.setSize(10000);
+        SchoolBean two = new SchoolBean();
+        two.setAddress("上海");
+        two.setCreateTime(new Date());
+        two.setSchoolName("qc");
+        two.setIs211(true);
+        two.setSize(20000);
         schoolBeans.add(one);
-        ExportUtil.export("schoolInfo", schoolBeans);
+        schoolBeans.add(two);
+        ModelAndView modelAndView = new ModelAndView(new ExcelView<SchoolBean>(schoolBeans));
     }
 }
 

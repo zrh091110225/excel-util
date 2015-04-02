@@ -14,9 +14,12 @@ public class DateTypeHandler extends TypeHandler<Date> {
     //TODO 添加日期格式的校验
     @Override
     public String handle(Object date, String pattern) {
+        if (date == null){
+            return StringUtils.EMPTY;
+        }
         String receivePattern = DEFAULT_DATE_PATTERN;
         if (StringUtils.isNotBlank(pattern)) receivePattern = pattern;
-        DateTime dateTime = new DateTime(date);
+        DateTime dateTime = new DateTime(((Date)date).getTime());
         return dateTime.toString(receivePattern);
     }
 }

@@ -1,4 +1,4 @@
-package com.hyman.java.export;
+package com.hyman.java.utils;
 
 import com.hyman.java.annotations.ExcelColumn;
 import com.hyman.java.annotations.ExcelTable;
@@ -81,7 +81,7 @@ public class ExportUtil {
 
             return workbook;
         } catch (Exception e) {
-            logger.error("export error ！", e);
+            logger.error("utils error ！", e);
         }
 
         return null;

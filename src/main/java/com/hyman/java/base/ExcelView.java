@@ -1,6 +1,7 @@
 package com.hyman.java.base;
 
 import com.hyman.java.annotations.ExcelTable;
+import com.hyman.java.utils.ExportUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
@@ -69,7 +70,7 @@ public class ExcelView<T> extends AbstractExcelView {
                     fileName = excelTable.fileName();
                 }
             }
-
+            ExportUtil.export(fileName, dataList, workbook);
 
             String rtn = "filename=\"" + URLEncoder.encode(fileName, "UTF-8") + ".xls" + "\"";
             response.setHeader("Content-disposition", "attachment;" + rtn);
